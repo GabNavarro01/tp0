@@ -15,34 +15,24 @@ int main(void)
 	/* ---------------- LOGGING ---------------- */
 
 	logger = iniciar_logger();
-	
-	// Usando el logger creado previamente
-	// Escribi: "Hola! Soy un log"
-	
-			// log_info(logger, "Hola! Soy un log");
-
+	//log_info(logger, "Hola soy un log!")
 
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
 
 	config = iniciar_config();
 
-	// Usando el config creado previamente, leemos los valores del config y los 
-	// dejamos en las variables 'ip', 'puerto' y 'valor'
 	valor = config_get_string_value(config, "CLAVE");
 	ip = config_get_string_value(config, "IP");
 	puerto = config_get_string_value(config, "PUERTO");
 
-	// Loggeamos el valor de config
 	log_info(logger, "El valor de la clave de la congis es %s", valor);
 	log_info(logger, "El valor ip de la congis es %s", ip);
 	log_info(logger, "El valor del puerto de la congis es %s" , puerto);
 
-
-	// log_info(logger, config->properties);
-	
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
 	leer_consola(logger);
+
 
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
@@ -88,11 +78,17 @@ void leer_consola(t_log* logger)
 	char* leido;
 
 	// La primera te la dejo de yapa
-	leido = readline("> ");
+	// leido = readline("> ");
 
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
-
-
+    while (1) {
+        leido = readline(">");
+		if (strcmp(leido,"") == 0) {
+			break;
+		}
+        log_info(logger, ">> %s", leido);
+        free(leido);
+    }
 	// ¡No te olvides de liberar las lineas antes de regresar!
 }
 
